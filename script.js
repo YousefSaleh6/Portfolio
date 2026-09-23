@@ -1,4 +1,33 @@
 /* ================================
+   DARK / LIGHT MODE TOGGLE
+================================ */
+
+const themeToggle = document.getElementById("themeToggle");
+const htmlElement = document.documentElement;
+
+// التحقق من الوضع المحفوظ مسبقاً في الـ localStorage
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  htmlElement.setAttribute("data-theme", savedTheme);
+  themeToggle.textContent = savedTheme === "dark" ? "☀️" : "🌙";
+}
+
+themeToggle.addEventListener("click", () => {
+  const currentTheme = htmlElement.getAttribute("data-theme");
+  
+  if (currentTheme === "dark") {
+    htmlElement.removeAttribute("data-theme");
+    localStorage.setItem("theme", "light");
+    themeToggle.textContent = "🌙";
+  } else {
+    htmlElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+    themeToggle.textContent = "☀️";
+  }
+});
+
+
+/* ================================
    MOBILE MENU
 ================================ */
 
@@ -87,7 +116,7 @@ window.addEventListener("scroll", () => {
     link.style.color = "";
 
     if (link.getAttribute("href") === `#${current}`) {
-      link.style.color = "#7d2638";
+      link.style.color = "var(--accent)";
     }
 
   });

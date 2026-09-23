@@ -12,7 +12,37 @@
   --border: #e4e7ec;
   --dark: #111827;
   --radius: 18px;
+  --nav-bg: rgba(247, 247, 245, 0.9);
+  --skills-bg: #eeeeeb;
+  --card-bg: #ffffff;
+  --stat-bg: #ffffff;
+  --tag-bg: #f1f1ef;
+  --tag-color: #555;
+  --secondary-btn-bg: #ffffff;
+  --secondary-btn-border: #ccc;
+  --secondary-btn-color: inherit;
 }
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent-dark: #2563eb;
+  --border: #334155;
+  --dark: #020617;
+  --nav-bg: rgba(15, 23, 42, 0.9);
+  --skills-bg: #1e293b;
+  --card-bg: #1e293b;
+  --stat-bg: #1e293b;
+  --tag-bg: #334155;
+  --tag-color: #f8fafc;
+  --secondary-btn-bg: #1e293b;
+  --secondary-btn-border: #334155;
+  --secondary-btn-color: #f8fafc;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -28,6 +58,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -54,9 +85,10 @@ a {
   width: 100%;
   top: 0;
   z-index: 1000;
-  background: rgba(247, 247, 245, 0.9);
+  background: var(--nav-bg);
   backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-container {
@@ -84,12 +116,37 @@ nav {
 nav a {
   font-size: 14px;
   font-weight: 500;
-  color: #555;
+  color: var(--muted);
   transition: 0.25s;
 }
 
 nav a:hover {
   color: var(--accent);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
+  background-color: var(--surface);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
 }
 
 .menu-toggle {
@@ -98,6 +155,7 @@ nav a:hover {
   background: none;
   font-size: 25px;
   cursor: pointer;
+  color: var(--text);
 }
 
 
@@ -176,8 +234,9 @@ nav a:hover {
 }
 
 .secondary-btn {
-  border: 1px solid #ccc;
-  background: white;
+  border: 1px solid var(--secondary-btn-border);
+  background: var(--secondary-btn-bg);
+  color: var(--secondary-btn-color);
 }
 
 .secondary-btn:hover {
@@ -194,66 +253,35 @@ nav a:hover {
 .social-links a {
   font-size: 13px;
   font-weight: 600;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid var(--muted);
   padding-bottom: 2px;
+  color: var(--muted);
 }
 
 
 /* ================================
-   CODE CARD
+   HERO CARD & IMAGE
 ================================ */
 
 .hero-card {
-  perspective: 1000px;
-}
-
-.code-window {
-  background: #191919;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.15);
-  transform: rotate(2deg);
-  transition: 0.4s;
-}
-
-.code-window:hover {
-  transform: rotate(0deg) translateY(-5px);
-}
-
-.window-top {
-  height: 42px;
-  background: #252525;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 7px;
-  padding-left: 18px;
 }
 
-.window-top span {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #777;
+.hero-card img {
+  width: 280px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.code-content {
-  padding: 30px 25px 40px;
-  color: #ddd;
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 2;
-}
-
-.indent {
-  padding-left: 22px;
-}
-
-.purple {
-  color: #d7a9ff;
-}
-
-.green {
-  color: #9bd9a3;
+.hero-card img:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.16);
 }
 
 
@@ -285,7 +313,7 @@ nav a:hover {
 
 .about-text {
   font-size: 17px;
-  color: #555;
+  color: var(--muted);
 }
 
 .about-text p {
@@ -299,10 +327,11 @@ nav a:hover {
 }
 
 .stat {
-  background: white;
+  background: var(--stat-bg);
   border: 1px solid var(--border);
   border-radius: 15px;
   padding: 25px;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .stat strong {
@@ -313,7 +342,7 @@ nav a:hover {
 }
 
 .stat span {
-  color: #777;
+  color: var(--muted);
   font-size: 12px;
 }
 
@@ -323,7 +352,8 @@ nav a:hover {
 ================================ */
 
 .skills-section {
-  background: #eeeeeb;
+  background: var(--skills-bg);
+  transition: background 0.3s ease;
 }
 
 .skills-grid {
@@ -333,7 +363,7 @@ nav a:hover {
 }
 
 .skill-card {
-  background: white;
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 30px;
@@ -358,7 +388,7 @@ nav a:hover {
 }
 
 .skill-card p {
-  color: #777;
+  color: var(--muted);
   font-size: 13px;
 }
 
@@ -374,7 +404,7 @@ nav a:hover {
 }
 
 .project-card {
-  background: white;
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -429,7 +459,7 @@ nav a:hover {
 }
 
 .project-content p {
-  color: #707070;
+  color: var(--muted);
   font-size: 14px;
   margin-bottom: 22px;
 }
@@ -442,12 +472,12 @@ nav a:hover {
 }
 
 .tags span {
-  background: #f1f1ef;
+  background: var(--tag-bg);
   border-radius: 100px;
   padding: 5px 10px;
   font-size: 10px;
   font-weight: 600;
-  color: #555;
+  color: var(--tag-color);
 }
 
 .project-link {
@@ -564,11 +594,9 @@ nav a:hover {
     opacity: 0;
     transform: scale(.7);
   }
-
   50% {
     opacity: .4;
   }
-
   100% {
     opacity: 0;
     transform: scale(1);
@@ -598,7 +626,8 @@ nav a:hover {
 ================================ */
 
 .experience-section {
-  background: #eeeeeb;
+  background: var(--skills-bg);
+  transition: background 0.3s ease;
 }
 
 .timeline {
@@ -614,7 +643,7 @@ nav a:hover {
   top: 5px;
   bottom: 5px;
   width: 1px;
-  background: #ccc;
+  background: var(--border);
 }
 
 .timeline-item {
@@ -631,7 +660,7 @@ nav a:hover {
   height: 15px;
   border-radius: 50%;
   background: var(--accent);
-  border: 3px solid #eeeeeb;
+  border: 3px solid var(--skills-bg);
   outline: 1px solid var(--accent);
 }
 
@@ -648,13 +677,13 @@ nav a:hover {
 
 .timeline-content h4 {
   font-size: 14px;
-  color: #666;
+  color: var(--muted);
   font-weight: 600;
   margin-bottom: 15px;
 }
 
 .timeline-content p {
-  color: #666;
+  color: var(--muted);
   font-size: 14px;
   max-width: 750px;
 }
@@ -672,6 +701,7 @@ nav a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid var(--border);
 }
 
 .education-box h2 {
@@ -704,11 +734,12 @@ nav a:hover {
 }
 
 .contact-box {
-  background: white;
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 25px;
   padding: 75px 50px;
   text-align: center;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .contact-box h2 {
@@ -721,7 +752,7 @@ nav a:hover {
 .contact-box > p:not(.eyebrow) {
   max-width: 600px;
   margin: auto auto 30px;
-  color: #777;
+  color: var(--muted);
 }
 
 .contact-buttons {
@@ -739,6 +770,7 @@ footer {
   background: var(--dark);
   color: #aaa;
   padding: 25px 0;
+  border-top: 1px solid var(--border);
 }
 
 .footer-content {
@@ -817,7 +849,7 @@ footer {
     top: 75px;
     left: 0;
     width: 100%;
-    background: var(--bg);
+    background: var(--nav-bg);
     display: none;
     flex-direction: column;
     gap: 0;
@@ -831,7 +863,7 @@ footer {
 
   nav a {
     padding: 13px 0;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid var(--border);
   }
 
   .hero h1 {
@@ -879,24 +911,4 @@ footer {
     gap: 10px;
   }
 
-}
-.hero-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.hero-card img {
-    width: 280px;
-    height: 340px;
-    object-fit: cover;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(37, 99, 235, 0.12);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hero-card img:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.16);
 }

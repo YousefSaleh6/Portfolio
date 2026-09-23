@@ -1,11 +1,9 @@
 /* ================================
    DARK / LIGHT MODE TOGGLE
 ================================ */
-
 const themeToggle = document.getElementById("themeToggle");
 const htmlElement = document.documentElement;
 
-// التحقق من الوضع المحفوظ مسبقاً في الـ localStorage
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
   htmlElement.setAttribute("data-theme", savedTheme);
@@ -26,99 +24,61 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
-
 /* ================================
-   MOBILE MENU
+   MOBILE MENU TOGGLE
 ================================ */
-
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
-menuToggle.addEventListener("click", () => {
+menuToggle.addEventListener("click", (e) => {
+  e.stopPropagation();
   navMenu.classList.toggle("active");
+  menuToggle.textContent = navMenu.classList.contains("active") ? "✕" : "☰";
 });
 
-
-/* Close mobile menu after clicking a link */
-
+// إغلاق المنيو عند الضغط على أي لينك داخله
 document.querySelectorAll("nav a").forEach(link => {
   link.addEventListener("click", () => {
     navMenu.classList.remove("active");
+    menuToggle.textContent = "☰";
   });
 });
 
+// إغلاق المنيو عند الضغط في أي مكان خارجها على الشاشة
+document.addEventListener("click", (event) => {
+  if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+    navMenu.classList.remove("active");
+    menuToggle.textContent = "☰";
+  }
+});
 
 /* ================================
    CURRENT YEAR
 ================================ */
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
+document.getElementById("year").textContent = new Date().getFullYear();
 
 /* ================================
-   SCROLL REVEAL
+   ACTIVE NAVIGATION ON SCROLL
 ================================ */
-
-const animatedElements = document.querySelectorAll(
-  ".section, .hero-text, .hero-card"
-);
-
-const observer = new IntersectionObserver(
-  (entries) => {
-
-    entries.forEach(entry => {
-
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-
-    });
-
-  },
-  {
-    threshold: 0.12
-  }
-);
-
-animatedElements.forEach(element => {
-  observer.observe(element);
-});
-
-
-/* ================================
-   ACTIVE NAVIGATION
-================================ */
-
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll("nav a");
 
 window.addEventListener("scroll", () => {
-
   let current = "";
 
   sections.forEach(section => {
-
     const sectionTop = section.offsetTop - 150;
     const sectionHeight = section.clientHeight;
 
-    if (
-      window.scrollY >= sectionTop &&
-      window.scrollY < sectionTop + sectionHeight
-    ) {
+    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
       current = section.getAttribute("id");
     }
-
   });
 
   navLinks.forEach(link => {
-
-    link.style.color = "";
-
+    link.classList.remove("active");
     if (link.getAttribute("href") === `#${current}`) {
-      link.style.color = "var(--accent)";
+      link.classList.add("active");
     }
-
   });
-
 });

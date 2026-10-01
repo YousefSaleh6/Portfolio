@@ -482,10 +482,11 @@ nav a:hover, nav a.active {
 .web-project { background: #334155; }
 
 .project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   transition: transform 0.4s ease;
 }
 
@@ -493,9 +494,11 @@ nav a:hover, nav a.active {
   transform: scale(1.04);
 }
 
+/* كروت المشاريع 2 و 3: الصورة بتاخد عرض الكارت كامل وارتفاعها بيتحسب تلقائي */
 .project-card:not(.featured-project) .project-image {
+  display: block;
   min-height: 0;
-  aspect-ratio: 16 / 9;
+  height: auto;
 }
 
 .project-content {
